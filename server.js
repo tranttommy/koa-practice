@@ -1,8 +1,14 @@
-const Koa = require('koa');
-const app = new Koa();
+const Koa = require('koa')
+const app = new Koa()
+const router = new require('koa-router')()
 
-app.use(ctx => {
-  ctx.body = 'Hello World!';
-});
+app.use(require('koa-logger')())
 
-app.listen(2309);
+router.get('/:blah', ctx => {
+  ctx.body = { body: ctx.params.blah }
+})
+
+app.use(router.routes())
+
+app.listen(2309)
+console.log('Server listening at 2309')
